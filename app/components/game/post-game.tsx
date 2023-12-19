@@ -78,7 +78,7 @@ export default function PostGame({
               className="w-1/2 mb-6"
             />
             <p className="font-medium text-gray-400">
-              Looks like you couldn't get it done this time.
+              Looks like you couldn&apos;t get it done this time.
             </p>
           </>
         )}
