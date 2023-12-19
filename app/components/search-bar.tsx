@@ -121,7 +121,9 @@ export default function SearchBar({
   }
 
   return (
-    <section className={`w-full ${type !== 'track' ? 'max-w-[600px]' : ''}`}>
+    <section
+      className={`w-full relative ${type !== 'track' ? 'max-w-[600px]' : ''}`}
+    >
       {type === 'track' && (
         <TrackResults
           list={track.list}

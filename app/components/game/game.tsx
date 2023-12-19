@@ -95,7 +95,7 @@ export default function Game({ tracks, name }: GameProps) {
   }
 
   const guesses = (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-4 -z-1">
       {Array(6)
         .fill(0)
         .map((_, index) => {

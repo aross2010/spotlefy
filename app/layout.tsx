@@ -19,6 +19,13 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+        />
+      </head>
+
       <body
         className={`${inter.className} h-full bg-gray-950 text-gray-50 flex flex-col items-center justify-center`}
       >

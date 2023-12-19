@@ -36,7 +36,7 @@ export default function TrackResults({
 
   return (
     <ul
-      className={`w-full rounded-md border border-gray-600 flex flex-col-reverse overflow-y-scroll max-h-48 ${
+      className={`absolute bottom-0 mb-[53px] bg-gray-800 w-full rounded-md border border-gray-600 flex flex-col-reverse overflow-y-scroll max-h-[13.9rem] ${
         list.length === 0 ? 'hidden' : ''
       }`}
     >
@@ -59,7 +59,7 @@ export default function TrackResults({
             className="text-left"
           >
             <li
-              className={` flex items-center px-4 py-2 rounded-t-md ${
+              className={` flex items-center px-4 py-2  ${
                 index !== 0 ? 'border-b border-gray-600' : ' rounded-b-md'
               }  ${
                 selectedIndex === index
