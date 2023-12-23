@@ -17,9 +17,12 @@ export default function AccessTokenContextProvider({
   const fetchAccessToken = async () => {
     try {
       const res = await axios.get('/api/access_token')
+      console.log('fetching')
       const token = res.data
       setAccessToken(token)
-    } catch (err) {}
+    } catch (err) {
+      console.log('error', err)
+    }
   }
 
   useEffect(() => {
