@@ -100,7 +100,6 @@ export default function Game({ tracks, name }: GameProps) {
     }
     // ran out of guesses, game over
     else if (guessedTracks.length === 6) {
-      toast.success('Game over!')
       setGameStats({
         win: false,
         time: timeLimit,
