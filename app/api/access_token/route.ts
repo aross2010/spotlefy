@@ -17,8 +17,10 @@ export async function GET() {
         },
       }
     )
+    console.log('INDIDE ROUTE', res.data.access_token)
     return NextResponse.json(res.data.access_token)
   } catch (err) {
+    console.log(err)
     return NextResponse.json({
       error: 'Something went wrong fetching the access token.',
     })
