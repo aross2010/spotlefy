@@ -174,7 +174,7 @@ export default function Game({ tracks, name }: GameProps) {
           {gameStats === null && (
             <Fragment>
               <p className="text-gray-500 text-xs mb-1">
-                Select a film to guess.
+                Select a track to guess.
               </p>
               <SearchBar
                 type="track"

@@ -88,7 +88,7 @@ export default function PostGame({
             className="py-3 px-10 bg-green-800 rounded-full mt-4 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
             onClick={startNewGame}
           >
-            Play again
+            Guess another track
           </button>
         ) : (
           <Fragment>
