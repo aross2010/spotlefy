@@ -2,6 +2,7 @@
 import { FaSearch } from 'react-icons/fa'
 import { FaXmark } from 'react-icons/fa6'
 import { useEffect, useState } from 'react'
+import axios from 'axios'
 import ArtistResults from './results/artist-results'
 import PlaylistResults from './results/playlist-results'
 import TrackResults from './results/track-results'
@@ -37,7 +38,7 @@ export default function SearchBar({
     input: '',
     list: [],
   })
-  const token = useAccessToken()
+  const { token, setToken } = useAccessToken()
 
   const placeholder =
     type === 'playlist'
@@ -46,23 +47,39 @@ export default function SearchBar({
       ? 'ex. Beyoncé'
       : 'Search for a track'
 
-  useEffect(() => {
+  const fetchResults = async () => {
     if (type === 'playlist') {
       if (playlistInput === '') {
         setPlaylistList([])
         return
       }
-      fetchPlaylists(token, playlistInput).then((res) => {
+      try {
+        const res = await fetchPlaylists(token, playlistInput)
         setPlaylistList(res.playlists.items)
-      })
+      } catch (err: any) {
+        if (err.response.status === 401) {
+          const newToken = await axios.get('/api/access_token')
+          setToken(newToken.data)
+          const res = await fetchPlaylists(newToken.data, playlistInput)
+          setPlaylistList(res.playlists.items)
+        }
+      }
     } else if (type === 'artist') {
       if (artistInput === '') {
         setArtistList([])
         return
       }
-      fetchArtists(token, artistInput).then((res) => {
+      try {
+        const res = await fetchArtists(token, artistInput)
         setArtistList(res.artists.items)
-      })
+      } catch (err: any) {
+        if (err.response.status === 401) {
+          const newToken = await axios.get('/api/access_token')
+          setToken(newToken.data)
+          const res = await fetchArtists(newToken.data, artistInput)
+          setArtistList(res.artists.items)
+        }
+      }
     } else if (type === 'track') {
       if (
         selectedIndex &&
@@ -84,6 +101,10 @@ export default function SearchBar({
       )
       setTrack({ ...track, list: tracks })
     }
+  }
+
+  useEffect(() => {
+    fetchResults()
   }, [playlistInput, track.input, artistInput])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

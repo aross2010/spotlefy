@@ -7,7 +7,6 @@ export const filterArtistTracks = (
 ): Track[] | null => {
   const tracksToPlay = []
   const titles = new Set()
-  console.log('here', tracks.length)
   for (const track of tracks) {
     const {
       id,

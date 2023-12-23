@@ -1,5 +1,6 @@
 'use client'
 import { Fragment, useEffect, useState } from 'react'
+import axios from 'axios'
 import { GuessedTrack, Track } from '../../lib/types'
 import AudioPlayer from './audio-player'
 import SearchBar from '../search-bar'
@@ -24,7 +25,7 @@ export default function Game({ tracks, name }: GameProps) {
   const [timeLimit, setTimeLimit] = useState<number>(1)
   const [gameStats, setGameStats] = useState<gameStats | null>(null)
 
-  const token = useAccessToken()
+  const { token, setToken } = useAccessToken()
 
   const updateTimeLimit = () => {
     if (timeLimit === 1) {
@@ -42,19 +43,28 @@ export default function Game({ tracks, name }: GameProps) {
 
   const getPreview = async () => {
     const track = tracks.pop() as Track
-    let preview_url = await fetchAudioPreview(track.api_url, token)
+    let preview_url = null
 
-    while (!preview_url) {
-      if (tracks.length === 0) {
-        // set no more games state (toast and redirecto home)
-        toast.error('You have played all the tracks!')
-        redirect('/')
-      }
-      const track = tracks.pop() as Track
+    try {
       preview_url = await fetchAudioPreview(track.api_url, token)
+    } catch (err: any) {
+      if (err.response.status === 401) {
+        const newToken = await axios.get('/api/access_token')
+        setToken(newToken.data)
+        preview_url = await fetchAudioPreview(track.api_url, newToken.data)
+      }
+    } finally {
+      while (!preview_url) {
+        if (tracks.length === 0) {
+          // set no more games state (toast and redirecto home)
+          toast.error('You have played all the tracks!')
+          redirect('/')
+        }
+        const track = tracks.pop() as Track
+        preview_url = await fetchAudioPreview(track.api_url, token)
+      }
+      setCurrentTrack({ ...track, preview_url })
     }
-
-    setCurrentTrack({ ...track, preview_url })
   }
 
   // get true screen height

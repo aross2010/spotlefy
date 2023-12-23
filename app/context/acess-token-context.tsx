@@ -7,7 +7,15 @@ type AccessTokenProviderProps = {
   children: React.ReactNode
 }
 
-const AccessTokenContext = createContext<string>('')
+type AccessTokenContextType = {
+  token: string
+  setToken: React.Dispatch<React.SetStateAction<string>>
+}
+
+const AccessTokenContext = createContext<AccessTokenContextType>({
+  token: '',
+  setToken: () => {},
+})
 
 export default function AccessTokenContextProvider({
   children,
@@ -17,12 +25,9 @@ export default function AccessTokenContextProvider({
   const fetchAccessToken = async () => {
     try {
       const res = await axios.get('/api/access_token')
-      console.log('fetching')
       const token = res.data
       setAccessToken(token)
-    } catch (err) {
-      console.log('error', err)
-    }
+    } catch (err) {}
   }
 
   useEffect(() => {
@@ -40,7 +45,12 @@ export default function AccessTokenContextProvider({
   }, [])
 
   return (
-    <AccessTokenContext.Provider value={accessToken}>
+    <AccessTokenContext.Provider
+      value={{
+        token: accessToken,
+        setToken: setAccessToken,
+      }}
+    >
       {children}
     </AccessTokenContext.Provider>
   )

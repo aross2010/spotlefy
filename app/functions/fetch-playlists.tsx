@@ -24,20 +24,15 @@ export const fetchPlaylists = async (token: string, query: string) => {
 }
 
 export const fetchArtists = async (token: string, query: string) => {
-  try {
-    const res = await axios.get(
-      `https://api.spotify.com/v1/search?q=${query}&type=artist`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    )
-    return res.data
-  } catch (err) {
-    // if (err.response.status === 401) {
-    // }
-  }
+  const res = await axios.get(
+    `https://api.spotify.com/v1/search?q=${query}&type=artist`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }
+  )
+  return res.data
 }
 
 export const fetchTracks = (
