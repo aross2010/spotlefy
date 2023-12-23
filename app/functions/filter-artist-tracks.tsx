@@ -7,29 +7,40 @@ export const filterArtistTracks = (
 ): Track[] | null => {
   const tracksToPlay = []
   const titles = new Set()
+  console.log('here', tracks.length)
   for (const track of tracks) {
+    const {
+      id,
+      name,
+      duration,
+      href,
+      artists,
+      album,
+      preview_url,
+      external_urls,
+    } = track
     if (
-      !track.id ||
-      titles.has(track.name) ||
-      track.duration <= 30000 ||
-      !track.preview_url ||
-      track.artists[0].name !== artist
+      !id ||
+      !href ||
+      titles.has(name) ||
+      duration <= 30000 ||
+      artists[0].name !== artist
     ) {
       continue
     }
 
     tracksToPlay.push({
-      id: track.id,
-      name: track.name,
+      id: id,
+      name: name,
       album: {
-        name: track.album.name,
-        image: track.album.images[0]?.url,
+        name: album.name,
+        image: album.images[0]?.url,
       },
-      artists: track.artists.map((artist: any) => artist.name),
-      preview_url: track.preview_url,
-      spotify_url: track.external_urls.spotify,
+      artists: artists.map((artist: any) => artist.name),
+      api_url: href,
+      spotify_url: external_urls.spotify,
     })
-    titles.add(track.name)
+    titles.add(name)
   }
 
   return tracksToPlay.length > 1 ? shuffle(tracksToPlay) : null

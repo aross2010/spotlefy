@@ -7,6 +7,10 @@ import { toast } from 'react-hot-toast'
 import { formatArtists } from '../../functions/format-artists'
 import PostGame from './post-game'
 import { gameStats } from '../../lib/types'
+import { fetchAudioPreview } from '@/app/functions/fetch-audio-preview'
+import { useAccessToken } from '@/app/context/acess-token-context'
+import { redirect } from 'next/navigation'
+import Link from 'next/link'
 
 type GameProps = {
   tracks: Track[]
@@ -20,6 +24,8 @@ export default function Game({ tracks, name }: GameProps) {
   const [timeLimit, setTimeLimit] = useState<number>(1)
   const [gameStats, setGameStats] = useState<gameStats | null>(null)
 
+  const token = useAccessToken()
+
   const updateTimeLimit = () => {
     if (timeLimit === 1) {
       setTimeLimit(3)
@@ -32,6 +38,23 @@ export default function Game({ tracks, name }: GameProps) {
     } else if (timeLimit === 18) {
       setTimeLimit(30)
     }
+  }
+
+  const getPreview = async () => {
+    const track = tracks.pop() as Track
+    let preview_url = await fetchAudioPreview(track.api_url, token)
+
+    while (!preview_url) {
+      if (tracks.length === 0) {
+        // set no more games state (toast and redirecto home)
+        toast.error('You have played all the tracks!')
+        redirect('/')
+      }
+      const track = tracks.pop() as Track
+      preview_url = await fetchAudioPreview(track.api_url, token)
+    }
+
+    setCurrentTrack({ ...track, preview_url })
   }
 
   // get true screen height
@@ -52,15 +75,13 @@ export default function Game({ tracks, name }: GameProps) {
   useEffect(() => {
     // start to game
     if (guessedTracks.length === 0) {
-      const track = tracks.pop() as Track
-      setCurrentTrack(track)
+      getPreview()
     }
     // if track guess is correct, game over
     else if (
       guessedTracks[guessedTracks.length - 1] !== 'skipped' &&
       (guessedTracks[guessedTracks.length - 1] as Track).id === currentTrack?.id
     ) {
-      toast.success('Correct!')
       setGameStats({
         win: true,
         time: timeLimit,
@@ -119,7 +140,13 @@ export default function Game({ tracks, name }: GameProps) {
   return (
     <section className="game-section py-4 overflow-hidden w-full flex flex-col justify-center">
       <h1 className="line-clamp-2 font-bold text-xl tracking-tight text-center pb-2 mb-4 border-b border-gray-800">
-        {name} Heardle
+        {name}{' '}
+        <Link
+          href="/"
+          className="hover:text-[#1ed760]"
+        >
+          Heardle
+        </Link>
       </h1>
       {gameStats === null ? (
         guesses
@@ -136,6 +163,9 @@ export default function Game({ tracks, name }: GameProps) {
         <div className="mb-6">
           {gameStats === null && (
             <Fragment>
+              <p className="text-gray-500 text-xs mb-1">
+                Select a film to guess.
+              </p>
               <SearchBar
                 type="track"
                 trackList={inGameTrackList}
@@ -143,9 +173,6 @@ export default function Game({ tracks, name }: GameProps) {
                 setGuessedTracks={setGuessedTracks}
                 disabled={gameStats !== null}
               />
-              <p className="text-gray-500 text-xs mt-1">
-                Select a film to guess.
-              </p>
             </Fragment>
           )}
 

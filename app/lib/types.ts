@@ -7,6 +7,7 @@ export type Track = {
   }
   artists: string[]
   preview_url: string
+  api_url: string
   spotify_url: string
 }
 

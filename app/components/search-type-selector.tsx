@@ -16,7 +16,7 @@ export default function SearchTypeSelector() {
 
   return (
     <Fragment>
-      {/* <div className="mb-6 bg-gray-900 rounded-full flex items-center">
+      <div className="mb-6 bg-gray-900 rounded-full flex items-center">
         {types.map((type) => {
           return (
             <Fragment key={type.value}>
@@ -42,7 +42,7 @@ export default function SearchTypeSelector() {
             </Fragment>
           )
         })}
-      </div> */}
+      </div>
 
       <SearchBar type={selectedType} />
     </Fragment>

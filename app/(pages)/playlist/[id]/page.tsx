@@ -2,7 +2,6 @@ import React from 'react'
 import axios from 'axios'
 import Game from '../../../components/game/game'
 import { filterPlaylistTracks } from '@/app/functions/filter-playlist-tracks'
-import { redirect } from 'next/navigation'
 import { Track } from '@/app/lib/types'
 import InValidList from '@/app/components/not-valid-list'
 
@@ -12,9 +11,7 @@ export default async function PlaylistPage({
   params: { id: string }
 }) {
   try {
-    const tokenRes = await axios.get(
-      'https://spotlefy-heardle.vercel.app/api/access_token'
-    )
+    const tokenRes = await axios.get('http://localhost:3000/api/access_token')
     const token = tokenRes.data
 
     const res = await axios.get(

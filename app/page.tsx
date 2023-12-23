@@ -7,7 +7,7 @@ export default function Home() {
         Spotlefy
       </h1>
       <h5 className="text-gray-300 font-medium mt-8 text-center">
-        Turn a Spotify playlist into a heardle game.
+        Turn a Spotify playlist, or an artist&apos;s tracks into a heardle.
       </h5>
       <div className="mt-6 w-full flex flex-col items-center justify-center">
         <SearchTypeSelector />

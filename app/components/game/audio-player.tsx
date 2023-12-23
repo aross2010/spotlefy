@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, useEffect, Fragment } from 'react'
+import { useRef, useState, Fragment } from 'react'
 import { FaPlay, FaPause, FaForward } from 'react-icons/fa'
 import ProgressBar from './progress-bar'
 import { GuessedTrack, Track } from '../../lib/types'
@@ -19,25 +19,6 @@ export default function AudioPlayer({
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const ref = useRef<HTMLAudioElement>(null)
-
-  useEffect(() => {
-    // set up event listeners for audio player to limit playback
-    const stopPlackBackAtLimit = () => {
-      if (!ref.current) return
-      if (
-        (limit && ref.current.currentTime >= limit) ||
-        ref.current.currentTime === ref.current.duration
-      ) {
-        ref.current.pause()
-        ref.current.currentTime = 0
-        setIsPlaying(false)
-      }
-    }
-    ref.current?.addEventListener('timeupdate', stopPlackBackAtLimit)
-    return () => {
-      ref.current?.removeEventListener('timeupdate', stopPlackBackAtLimit)
-    }
-  }, [limit])
 
   const handlePlayback = () => {
     if (!ref.current) return
@@ -70,10 +51,17 @@ export default function AudioPlayer({
   return (
     <Fragment>
       <audio
-        ref={ref}
         src={url}
+        ref={ref}
         onPlay={() => setIsPlaying(true)}
         onPause={() => setIsPlaying(false)}
+        onTimeUpdate={(e) => {
+          const audio = e.target as HTMLAudioElement
+          if (limit && audio.currentTime >= limit) {
+            audio.pause()
+            audio.currentTime = 0
+          }
+        }}
         // controls
       />
       <ProgressBar

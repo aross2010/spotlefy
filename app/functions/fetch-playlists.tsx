@@ -4,8 +4,6 @@ import { GuessedTrack, Track } from '../lib/types'
 export const fetchPlaylists = async (token: string, query: string) => {
   // if query begins with https then search for playlist by url
 
-  console.log('token', token)
-
   const isCopiedPlaylist = query.startsWith(
     'https://open.spotify.com/playlist/'
   )

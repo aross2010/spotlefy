@@ -11,3 +11,19 @@
   height: 100vh; /* fallback for Js load */
   height: var(--doc-height);
 }
+
+::-webkit-scrollbar {
+  @apply w-2 bg-transparent;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-transparent rounded-full;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-600 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

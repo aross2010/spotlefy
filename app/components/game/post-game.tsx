@@ -67,7 +67,8 @@ export default function PostGame({
             </div>
 
             <p className="font-medium ">
-              Wow! You got that in {gameStats.time} seconds!
+              Wow! You got that in {gameStats.time} second
+              {gameStats.time === 1 ? '' : 's'}!
             </p>
           </Fragment>
         ) : (

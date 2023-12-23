@@ -17,14 +17,14 @@ export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
         is_local,
         id,
         duration,
-        preview_url,
+        href,
         name,
         album,
         artists,
         external_urls,
       } = track.track
 
-      if (is_local || !id || duration <= 30000 || !preview_url) continue
+      if (is_local || !id || duration <= 30000 || !href) continue
 
       tracksToPlay.push({
         id: id,
@@ -34,7 +34,7 @@ export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
           image: album.images[0]?.url,
         },
         artists: artists.map((artist: any) => artist.name),
-        preview_url: preview_url,
+        api_url: href,
         spotify_url: external_urls.spotify,
       })
     }
