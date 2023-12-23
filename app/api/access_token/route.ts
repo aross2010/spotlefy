@@ -14,6 +14,8 @@ export async function GET() {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
           Authorization: `Basic ${process.env.SPOTIFY_AUTHORIZATION as string}`,
+          'Cache-Control':
+            'no-store, no-cache, must-revalidate, proxy-revalidate',
         },
       }
     )
