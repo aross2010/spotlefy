@@ -26,9 +26,8 @@ export default function AccessTokenContextProvider({
     try {
       const res = await axios.get('/api/access_token')
       const token = res.data
-      setAccessToken(
-        'BQCeYERAOsXYYxmFxZNfcH7_sAIYsuvlqxfxmMRE1fqA6uvDnMEA5Ij_ZTKyz79r3czdy-wrWMf29oG4jIaqlf9lf4btNIZ8Ev7Ch-uBB3EiqqauOhFli16fJPZ6hlW5ZjxPtrrsEDS9ImgnQ-x59AS7S-QuGeS11v2O4oBp_W4c9oxM9ynoxvs6LhDGZfWwxQ'
-      )
+      console.log('fetched this token inside context:', token)
+      setAccessToken(token)
     } catch (err) {}
   }
 
@@ -45,10 +44,6 @@ export default function AccessTokenContextProvider({
       clearInterval(tokenRefreshInterval)
     }
   }, [])
-
-  useEffect(() => {
-    console.log('access token', accessToken)
-  }, [accessToken])
 
   return (
     <AccessTokenContext.Provider
