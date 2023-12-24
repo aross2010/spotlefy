@@ -10,5 +10,7 @@ export const fetchAudioPreview = async (trackUrl: string, token: string) => {
     },
   })
 
+  console.log(res.data)
+
   return res.data.preview_url
 }

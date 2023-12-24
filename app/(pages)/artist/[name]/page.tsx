@@ -47,6 +47,7 @@ export default async function page({ params }: { params: { name: string } }) {
       <Game
         tracks={tracksToPlay}
         name={artistName}
+        type="artist"
       />
     )
   } catch (err) {

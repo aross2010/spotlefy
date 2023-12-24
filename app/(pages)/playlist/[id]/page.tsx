@@ -57,6 +57,7 @@ export default async function PlaylistPage({
       <Game
         tracks={tracks}
         name={playlistName}
+        type="playlist"
       />
     )
   } catch (err) {

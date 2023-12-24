@@ -16,9 +16,10 @@ import Link from 'next/link'
 type GameProps = {
   tracks: Track[]
   name: string
+  type: 'artist' | 'playlist'
 }
 
-export default function Game({ tracks, name }: GameProps) {
+export default function Game({ tracks, name, type }: GameProps) {
   const [inGameTrackList] = useState<Track[]>([...tracks])
   const [currentTrack, setCurrentTrack] = useState<Track | null>(null)
   const [guessedTracks, setGuessedTracks] = useState<GuessedTrack>([])
@@ -43,10 +44,17 @@ export default function Game({ tracks, name }: GameProps) {
 
   const getPreview = async () => {
     const track = tracks.pop() as Track
+
+    if (type === 'playlist') {
+      setCurrentTrack(track)
+      return
+    }
+
     let preview_url = null
 
     try {
       preview_url = await fetchAudioPreview(track.api_url, token)
+      console.log(preview_url)
     } catch (err: any) {
       if (err.response.status === 401) {
         const newToken = await axios.get('/api/access_token')
@@ -191,6 +199,7 @@ export default function Game({ tracks, name }: GameProps) {
               limit={timeLimit}
               setLimit={setTimeLimit}
               setGuessedTracks={setGuessedTracks}
+              hideSkip={gameStats !== null}
             />
           </div>
         </div>

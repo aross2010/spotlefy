@@ -11,6 +11,8 @@ export const shuffle = (array: any[]) => {
 export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
   const tracksToPlay = []
 
+  console.log(tracks.length)
+
   try {
     for (const track of tracks) {
       const {
@@ -21,10 +23,14 @@ export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
         name,
         album,
         artists,
+        preview_url,
         external_urls,
       } = track.track
 
-      if (is_local || !id || duration <= 30000 || !href) continue
+      if (is_local || !id || duration <= 30000 || !href || !preview_url) {
+        console.log(track.track.name, track.track.id)
+        continue
+      }
 
       tracksToPlay.push({
         id: id,
@@ -34,6 +40,7 @@ export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
           image: album.images[0]?.url,
         },
         artists: artists.map((artist: any) => artist.name),
+        preview_url: preview_url,
         api_url: href,
         spotify_url: external_urls.spotify,
       })

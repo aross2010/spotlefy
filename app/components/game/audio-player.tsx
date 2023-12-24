@@ -9,6 +9,7 @@ type AudioPlayerProps = {
   limit: number | null
   setLimit: React.Dispatch<React.SetStateAction<number>>
   setGuessedTracks: React.Dispatch<React.SetStateAction<GuessedTrack>>
+  hideSkip: boolean
 }
 
 export default function AudioPlayer({
@@ -16,6 +17,7 @@ export default function AudioPlayer({
   limit,
   setLimit,
   setGuessedTracks,
+  hideSkip,
 }: AudioPlayerProps) {
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const ref = useRef<HTMLAudioElement>(null)
@@ -83,7 +85,9 @@ export default function AudioPlayer({
         </button>{' '}
         <button
           type="button"
-          className={`absolute hover:brightness-105 active:scale-95 transition-all right-0 flex items-center gap-2 py-2 px-4 bg-gray-500 rounded-sm text-sm ${
+          className={`${
+            hideSkip ? 'hidden' : 'absolute'
+          } hover:brightness-105 active:scale-95 transition-all right-0 flex items-center gap-2 py-2 px-4 bg-gray-500 rounded-sm text-sm ${
             limit === null ? 'hidden' : ''
           }`} // change to isWin !== null then hide
           onClick={() => {

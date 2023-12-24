@@ -15,7 +15,7 @@ export const filterArtistTracks = (
       href,
       artists,
       album,
-      preview_url,
+
       external_urls,
     } = track
     if (
@@ -27,6 +27,8 @@ export const filterArtistTracks = (
     ) {
       continue
     }
+
+    if (name === 'Jail') console.log(track)
 
     tracksToPlay.push({
       id: id,
