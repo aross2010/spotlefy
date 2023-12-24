@@ -56,14 +56,16 @@ export default function SearchBar({
       try {
         const res = await fetchPlaylists(token, playlistInput)
         setPlaylistList(res.playlists.items)
-        const newToken = await axios.get('/api/access_token')
-        console.log('new token fetch', newToken.data)
+        const newToken = await fetch('/api/access_token')
+        const tokenF = await newToken.json()
+        console.log('new token fetch', tokenF)
       } catch (err: any) {
         if (err.response.status === 401) {
-          const newToken = await axios.get('/api/access_token')
-          console.log('new token after error', newToken.data)
-          setToken(newToken.data)
-          const res = await fetchPlaylists(newToken.data, playlistInput)
+          const newToken = await fetch('/api/access_token')
+          const tokenF = await newToken.json()
+          console.log('new token after error', tokenF)
+          setToken(tokenF)
+          const res = await fetchPlaylists(tokenF, playlistInput)
           setPlaylistList(res.playlists.items)
         }
       }
