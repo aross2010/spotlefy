@@ -25,7 +25,7 @@ export default function AccessTokenContextProvider({
   const fetchAccessToken = async () => {
     try {
       let token = ''
-      await fetch('/api/access_token', { cache: 'no-cache' }).then(
+      await fetch('/api/access_token', { cache: 'no-store' }).then(
         async (res) => {
           token = await res.json()
         }

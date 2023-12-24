@@ -8,7 +8,7 @@ export async function GET() {
   }
   try {
     const res = await fetch('https://accounts.spotify.com/api/token', {
-      cache: 'no-cache',
+      cache: 'no-store',
       method: 'POST',
       headers: {
         Authorization: `Basic ${Buffer.from(
