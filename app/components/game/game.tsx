@@ -54,7 +54,6 @@ export default function Game({ tracks, name, type }: GameProps) {
 
     try {
       preview_url = await fetchAudioPreview(track.api_url, token)
-      console.log(preview_url)
     } catch (err: any) {
       if (err.response.status === 401) {
         const newToken = await axios.get('/api/access_token')

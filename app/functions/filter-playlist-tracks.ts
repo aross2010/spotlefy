@@ -11,8 +11,6 @@ export const shuffle = (array: any[]) => {
 export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
   const tracksToPlay = []
 
-  console.log(tracks.length)
-
   try {
     for (const track of tracks) {
       const {
@@ -28,7 +26,6 @@ export const filterPlaylistTracks = (tracks: any[]): Track[] | null => {
       } = track.track
 
       if (is_local || !id || duration <= 30000 || !href || !preview_url) {
-        console.log(track.track.name, track.track.id)
         continue
       }
 
