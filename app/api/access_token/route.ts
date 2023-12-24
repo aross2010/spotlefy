@@ -19,7 +19,6 @@ export async function GET() {
       body: new URLSearchParams(params).toString(),
     })
     const data = await dynamic.json()
-    console.log('in route', data.access_token)
     return NextResponse.json(data.access_token)
   } catch (err) {
     return NextResponse.json({
