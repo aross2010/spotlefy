@@ -7,7 +7,7 @@ export async function GET() {
     refresh_token: process.env.SPOTIFY_REFRESH_TOKEN as string,
   }
   try {
-    const res = await fetch('https://accounts.spotify.com/api/token', {
+    const dynamic = await fetch('https://accounts.spotify.com/api/token', {
       cache: 'no-store',
       method: 'POST',
       headers: {
@@ -18,7 +18,7 @@ export async function GET() {
       },
       body: new URLSearchParams(params).toString(),
     })
-    const data = await res.json()
+    const data = await dynamic.json()
     console.log('in route', data.access_token)
     return NextResponse.json(data.access_token)
   } catch (err) {
