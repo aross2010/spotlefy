@@ -11,6 +11,8 @@ export const metadata: Metadata = {
   description: "Turn a Spotify playlist, or an artist's tracks into a heardle.",
 }
 
+export const fetchCache = 'force-no-store'
+
 export default function RootLayout({
   children,
 }: {
