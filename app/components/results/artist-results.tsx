@@ -26,12 +26,12 @@ export default function ArtistResults({ list }: { list: Artist[] }) {
               className="bg-gray-900 hover:bg-gray-800 rounded-md flex items-center pr-4 transition-all"
             >
               {artist.images[0]?.url ? (
-                <Image
+                <img
                   src={artist.images[0]?.url}
                   alt={`${artist.name} cover.`}
                   width={100}
                   height={100}
-                  className="rounded-l-md mr-5 h-[100px] min-w-[100px] object-cover "
+                  className="rounded-l-md mr-5 h-[100px] w-[100px] min-w-[100px] object-cover "
                 />
               ) : (
                 <div className="min-w-[100px] min-h-[100px] rounded-md mr-5 bg-gray-800"></div>

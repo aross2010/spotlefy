@@ -29,7 +29,7 @@ export default function PostGame({
             gameStats.win ? 'bg-green-900' : 'bg-red-900'
           } rounded-md flex items-center pr-4 transition-all`}
         >
-          <Image
+          <img
             src={track.album.image}
             alt={`${track.name} cover`}
             height={100}
@@ -50,8 +50,8 @@ export default function PostGame({
       <div className="mt-auto mb-auto flex flex-col items-center ">
         {gameStats.win ? (
           <Fragment>
-            <Image
-              src={victoryRoyale}
+            <img
+              src={victoryRoyale.src}
               alt="Victory Royale!"
               className="w-1/2 mb-6"
             />
@@ -73,8 +73,8 @@ export default function PostGame({
           </Fragment>
         ) : (
           <>
-            <Image
-              src={wasted}
+            <img
+              src={wasted.src}
               alt="Wasted!"
               className="w-1/2 mb-6"
             />

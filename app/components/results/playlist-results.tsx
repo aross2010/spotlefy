@@ -30,7 +30,7 @@ export default function PlaylistResults({ list }: { list: any[] }) {
               className="bg-gray-900 hover:bg-gray-800 rounded-md flex items-center pr-4 transition-all"
               key={playlist.id}
             >
-              <Image
+              <img
                 src={playlist.images[0]?.url}
                 alt={`${playlist.name} cover.`}
                 width={100}
