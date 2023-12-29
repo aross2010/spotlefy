@@ -20,7 +20,16 @@ Desktop ->
 
 
 
+https://github.com/aross2010/spotlefy/assets/121838301/affa8bf8-5f4f-493c-b1b2-9c6ef6de5c73
+
+
+
 Mobile ->
+
+
+
+
+https://github.com/aross2010/spotlefy/assets/121838301/4e7bda43-20ce-461a-919d-404c11a9e782
 
 
 
