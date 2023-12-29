@@ -1,10 +1,13 @@
 import { formatArtists } from '@/app/functions/format-artists'
 import { Track, gameStats } from '@/app/lib/types'
-import Image from 'next/image'
+import { IoStatsChart } from 'react-icons/io5'
+import { FaRepeat } from 'react-icons/fa6'
 import Link from 'next/link'
+import { useState } from 'react'
 import React, { Fragment } from 'react'
-import victoryRoyale from '@/public/victory-royale.png'
-import wasted from '@/public/wasted.png'
+import happyDance from '@/public/happydance.gif'
+import takeL from '@/public/takethel.gif'
+import StatsModal from './stats-modal'
 
 type PostGameProps = {
   gameStats: gameStats
@@ -19,7 +22,8 @@ export default function PostGame({
   isLastGame,
   track,
 }: PostGameProps) {
-  const percentage = (gameStats.time / 30) * 100
+  const [isStatsModalOpen, setIsStatsModalOpen] = useState<boolean>(false)
+
   return (
     <Fragment>
       <div>
@@ -51,56 +55,56 @@ export default function PostGame({
         {gameStats.win ? (
           <Fragment>
             <img
-              src={victoryRoyale.src}
-              alt="Victory Royale!"
-              className="w-1/2 mb-6"
+              src={happyDance.src}
+              alt="Happy Fortnite dance!"
+              className="h-48 mb-6"
             />
-            <div className="w-1/2 h-3 bg-gray-800 rounded-full flex mb-6">
-              <div
-                className={`bg-green-800 h-full ${
-                  percentage === 100 ? 'rouned-full' : 'rounded-l-full'
-                }`}
-                style={{
-                  width: `${percentage}%`,
-                }}
-              />
-            </div>
 
-            <p className="font-medium ">
-              Wow! You got that in {gameStats.time} second
-              {gameStats.time === 1 ? '' : 's'}!
-            </p>
+            <p className="font-medium ">VICTORY ROYALE!!!!</p>
           </Fragment>
         ) : (
           <>
             <img
-              src={wasted.src}
-              alt="Wasted!"
-              className="w-1/2 mb-6"
+              src={takeL.src}
+              alt="Take the L dance."
+              className="h-48 mb-6"
             />
-            <p className="font-medium text-gray-400">
-              Looks like you couldn&apos;t get it done this time.
-            </p>
+            <p className="font-medium">TAKE THE L!!!!</p>
           </>
         )}
-        {!isLastGame ? (
-          <button
-            className="py-3 px-10 bg-green-800 rounded-full mt-4 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
-            onClick={startNewGame}
-          >
-            Guess another track
-          </button>
-        ) : (
-          <Fragment>
-            <Link
-              href="/"
-              className="py-3 px-10 bg-green-800 rounded-full mt-4 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
-            >
-              No more games left. Play another.
-            </Link>
-          </Fragment>
-        )}
+        <div className="flex items-center gap-2">
+          {!isLastGame ? (
+            <Fragment>
+              <button
+                className="py-3 px-3 flex items-center gap-2 bg-gray-600 text-gray-200 rounded-md mt-4 hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-wider "
+                onClick={() => setIsStatsModalOpen(true)}
+              >
+                View Stats <IoStatsChart className="inline" />
+              </button>
+              <button
+                className="py-3 px-3 flex items-center gap-2 bg-green-800 text-gray-200 rounded-md mt-4 hover:scale-105 active:scale-95 transition-all text-xs uppercase tracking-wider "
+                onClick={startNewGame}
+              >
+                Play again <FaRepeat className="inline" />
+              </button>
+            </Fragment>
+          ) : (
+            <Fragment>
+              <Link
+                href="/"
+                className="py-3 px-10 bg-green-800 rounded-full mt-4 hover:scale-105 active:scale-95 transition-all text-sm font-medium"
+              >
+                No more games left. Play another.
+              </Link>
+            </Fragment>
+          )}
+        </div>
       </div>
+      <StatsModal
+        open={isStatsModalOpen}
+        setOpen={setIsStatsModalOpen}
+        gameStats={gameStats}
+      />
     </Fragment>
   )
 }

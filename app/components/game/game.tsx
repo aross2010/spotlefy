@@ -74,6 +74,78 @@ export default function Game({ tracks, name, type }: GameProps) {
     }
   }
 
+  const addLocalStats = (win: boolean) => {
+    const totalGames = localStorage.getItem('totalGames')
+    const totalWins = localStorage.getItem('totalWins')
+    const maxStreak = localStorage.getItem('maxWinStreak')
+    const currentStreak = localStorage.getItem('currentWinStreak')
+    const gamePoints = localStorage.getItem('gamePoints')
+
+    let pointsArr
+
+    if (!gamePoints) {
+      pointsArr = [0, 0, 0, 0, 0, 0, 0]
+    } else {
+      pointsArr = JSON.parse(gamePoints)
+    }
+
+    if (!totalGames) {
+      localStorage.setItem('totalGames', '1')
+    } else {
+      localStorage.setItem('totalGames', `${parseInt(totalGames) + 1}`)
+    }
+
+    if (win) {
+      if (!totalWins) {
+        localStorage.setItem('totalWins', '1')
+      } else {
+        localStorage.setItem('totalWins', `${parseInt(totalWins) + 1}`)
+      }
+
+      if (!maxStreak) {
+        localStorage.setItem('maxWinStreak', '1')
+      } else if (
+        parseInt(currentStreak as string) + 1 >
+        parseInt(maxStreak as string)
+      ) {
+        localStorage.setItem('maxWinStreak', `${parseInt(maxStreak) + 1}`)
+      }
+
+      if (!currentStreak) {
+        localStorage.setItem('currentWinStreak', '1')
+      } else {
+        localStorage.setItem(
+          'currentWinStreak',
+          `${parseInt(currentStreak) + 1}`
+        )
+      }
+    } else {
+      localStorage.setItem('currentWinStreak', '0')
+    }
+
+    if (win) {
+      if (timeLimit === 1) {
+        pointsArr[0] += 1
+      } else if (timeLimit === 3) {
+        pointsArr[1] += 1
+      }
+      if (timeLimit === 6) {
+        pointsArr[2] += 1
+      }
+      if (timeLimit === 10) {
+        pointsArr[3] += 1
+      }
+      if (timeLimit === 18) {
+        pointsArr[4] += 1
+      }
+      if (timeLimit === 30) {
+        pointsArr[5] += 1
+      }
+    }
+
+    localStorage.setItem('gamePoints', JSON.stringify(pointsArr))
+  }
+
   // get true screen height
   useEffect(() => {
     const documentHeight = () => {
@@ -104,6 +176,7 @@ export default function Game({ tracks, name, type }: GameProps) {
         time: timeLimit,
       })
       setTimeLimit(30)
+      addLocalStats(true)
     }
     // ran out of guesses, game over
     else if (guessedTracks.length === 6) {
@@ -111,6 +184,7 @@ export default function Game({ tracks, name, type }: GameProps) {
         win: false,
         time: timeLimit,
       })
+      addLocalStats(false)
     }
     // guess was incorrect, add time to limit
     else updateTimeLimit()

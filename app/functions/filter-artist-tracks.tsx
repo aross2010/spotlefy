@@ -28,8 +28,6 @@ export const filterArtistTracks = (
       continue
     }
 
-    if (name === 'Jail') console.log(track)
-
     tracksToPlay.push({
       id: id,
       name: name,
