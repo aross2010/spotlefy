@@ -29,14 +29,19 @@ export default async function page({ params }: { params: { name: string } }) {
     let next = tracks.next
 
     while (next) {
-      const res = await axios.get(next, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
-      const tracks = res.data.tracks
-      artistTracks.push(...tracks.items)
-      next = tracks.next
+      try {
+        const res = await axios.get(next, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        })
+        const tracks = res.data.tracks
+        artistTracks.push(...tracks.items)
+        next = tracks.next
+      } catch (err: any) {
+        console.log(err)
+        redirect('/')
+      }
     }
 
     const tracksToPlay = filterArtistTracks(artistTracks, artistName) as Track[]

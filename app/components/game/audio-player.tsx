@@ -89,7 +89,7 @@ export default function AudioPlayer({
             hideSkip ? 'hidden' : 'absolute'
           } hover:brightness-105 active:scale-95 transition-all right-0 flex items-center gap-2 py-2 px-4 bg-gray-500 rounded-sm text-sm ${
             limit === null ? 'hidden' : ''
-          }`} // change to isWin !== null then hide
+          }`}
           onClick={() => {
             setGuessedTracks((prev) => [...prev, 'skipped'])
           }}

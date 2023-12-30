@@ -28,7 +28,6 @@ export default function SearchBar({
   setGuessedTracks,
   ...rest
 }: SearchBarProps) {
-  // seperate input and list state
   const [selectedIndex, setSelectedIndex] = useState<number | null>(null)
   const [artistInput, setArtistInput] = useState<string>('')
   const [artistList, setArtistList] = useState([])
