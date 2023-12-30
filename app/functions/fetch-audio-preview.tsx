@@ -14,7 +14,12 @@ export const fetchAudioPreview = async (trackUrl: string, token: string) => {
 
     return res.data.preview_url
   } catch (err: any) {
-    console.log('Error Here', err)
-    return null
+    const token = await axios.get('/api/access_token')
+    const res = await axios.get(trackUrl, {
+      headers: {
+        Authorization: `Bearer ${token.data}`,
+      },
+    })
+    return res.data.preview_url
   }
 }
