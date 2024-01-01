@@ -3,6 +3,7 @@
 import React, { Fragment } from 'react'
 import SearchBar from './search-bar'
 import { useState } from 'react'
+import { motion } from 'framer-motion'
 
 const types = [
   { value: 'playlist', label: 'Playlist' },
@@ -21,14 +22,25 @@ export default function SearchTypeSelector() {
           return (
             <Fragment key={type.value}>
               <label
-                className={`cursor-pointer rounded-full px-8 text-center py-1 transition-colors ${
+                className={`cursor-pointer relative z-10 rounded-full px-8 text-center py-1 transition-all ${
                   selectedType === type.value
-                    ? 'bg-[#1ed760] text-gray-950'
+                    ? 'text-gray-950 bg-transparent'
                     : ''
                 }`}
                 htmlFor={type.value}
               >
                 {type.label}
+                {selectedType === type.value && (
+                  <motion.span
+                    className="bg-[#1ed760] rounded-full absolute inset-0 -z-10"
+                    layoutId="selectedType"
+                    transition={{
+                      type: 'spring',
+                      stiffness: 380,
+                      damping: 30,
+                    }}
+                  />
+                )}
               </label>
 
               <input
@@ -37,7 +49,7 @@ export default function SearchTypeSelector() {
                 id={type.value}
                 value={type.value}
                 className="hidden"
-                onChange={(e) => setSelectedType(type.value)}
+                onChange={() => setSelectedType(type.value)}
               />
             </Fragment>
           )
