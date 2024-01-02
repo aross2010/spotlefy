@@ -157,10 +157,16 @@ export default function SearchBar({
           setSelectedIndex={setSelectedIndex}
         />
       )}
-      {type === 'playlist' && (
+      {type === 'playlist' ? (
         <p className="text-left text-gray-500 font-medium text-xs mb-1">
           Paste the share link to import a playlist.
         </p>
+      ) : (
+        type === 'artist' && (
+          <p className="text-left text-gray-500 font-medium text-xs mb-1">
+            Includes tracks where the artist is first credited.
+          </p>
+        )
       )}
 
       <div

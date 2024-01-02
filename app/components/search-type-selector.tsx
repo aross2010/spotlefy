@@ -22,7 +22,7 @@ export default function SearchTypeSelector() {
           return (
             <Fragment key={type.value}>
               <label
-                className={`cursor-pointer relative z-10 rounded-full px-8 text-center py-1 transition-all ${
+                className={`cursor-pointer relative z-10 rounded-full px-8 text-center py-1.5 transition-all ${
                   selectedType === type.value
                     ? 'text-gray-950 bg-transparent'
                     : ''
