@@ -7,7 +7,7 @@ import ToasterContext from './context/toast-context'
 const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
-  title: 'Spotelfy',
+  title: 'Spotlefy',
   description:
     "Turn any Spotify playlist, or an artist's tracks into a heardle game.",
 }

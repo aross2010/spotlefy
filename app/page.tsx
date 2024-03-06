@@ -9,7 +9,7 @@ export default function Home() {
         <h1 className="font-bold text-5xl tracking-tight text-[#1ed760]">
           Spotlefy
         </h1>
-        <h5 className="text-gray-300 font-medium mt-8 text-center">
+        <h5 className="text-gray-300 mt-8 text-center">
           Turn a Spotify playlist, or an artist&apos;s tracks into a Heardle
           game.
         </h5>
