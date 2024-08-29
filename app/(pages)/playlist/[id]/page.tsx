@@ -11,7 +11,9 @@ export default async function PlaylistPage({
   params: { id: string }
 }) {
   try {
-    const tokenRes = await axios.get('http://localhost:3000/api/access_token')
+    const tokenRes = await axios.get(
+      'https://spotlefy.vercel.app/api/access_token'
+    )
     const token = tokenRes.data
 
     const res = await axios.get(
