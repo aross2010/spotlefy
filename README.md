@@ -40,8 +40,3 @@ https://github.com/aross2010/spotlefy/assets/121838301/4e7bda43-20ce-461a-919d-4
 - Next.js
 - Tailwind CSS
 - Spotify Web API
-
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
