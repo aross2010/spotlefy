@@ -25,14 +25,14 @@ export default function SearchTypeSelector() {
                 className={`cursor-pointer relative z-10 rounded-full px-8 text-center py-1.5 transition-all ${
                   selectedType === type.value
                     ? 'text-gray-950 bg-transparent'
-                    : ''
+                    : 'text-gray-400'
                 }`}
                 htmlFor={type.value}
               >
                 {type.label}
                 {selectedType === type.value && (
                   <motion.span
-                    className="bg-[#1ed760] rounded-full absolute inset-0 -z-10"
+                    className="bg-[#1db954] rounded-full absolute inset-0 -z-10"
                     layoutId="selectedType"
                     transition={{
                       type: 'spring',

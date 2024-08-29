@@ -1,2 +1,0 @@
-store access token in state, if expired, fetch a new one
-game context

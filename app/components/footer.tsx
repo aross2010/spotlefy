@@ -36,7 +36,7 @@ export default function Footer() {
             })}{' '}
             by{' '}
             <a
-              href="https://www.adross.dev"
+              href="https://www.aross.app"
               className="hover:underline"
               target="_blank"
             >
