@@ -10,9 +10,15 @@ const types = [
   { value: 'artist', label: 'Artist' },
 ] as const
 
+type SearchTypeSelectorProps = {
+  disabled?: boolean
+}
+
 type Type = (typeof types)[number]['value']
 
-export default function SearchTypeSelector() {
+export default function SearchTypeSelector({
+  disabled,
+}: SearchTypeSelectorProps) {
   const [selectedType, setSelectedType] = useState<Type>(types[0].value)
 
   return (
@@ -56,7 +62,10 @@ export default function SearchTypeSelector() {
         })}
       </div>
 
-      <SearchBar type={selectedType} />
+      <SearchBar
+        disabled
+        type={selectedType}
+      />
     </Fragment>
   )
 }

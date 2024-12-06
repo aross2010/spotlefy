@@ -39,7 +39,6 @@ export default async function page({ params }: { params: { name: string } }) {
         artistTracks.push(...tracks.items)
         next = tracks.next
       } catch (err: any) {
-        console.log(err)
         redirect('/')
       }
     }

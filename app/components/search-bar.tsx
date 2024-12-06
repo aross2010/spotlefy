@@ -11,7 +11,7 @@ import {
   fetchArtists,
   fetchPlaylists,
   fetchTracks,
-} from '../functions/fetch-playlists'
+} from '../functions/fetch-lists'
 import { GuessedTrack, Track } from '../lib/types'
 
 type SearchBarProps = {
@@ -106,7 +106,12 @@ export default function SearchBar({
   }
 
   useEffect(() => {
-    fetchResults()
+    // debounce the fetchResults function
+    const timer = setTimeout(() => {
+      fetchResults()
+    }, 500)
+
+    return () => clearTimeout(timer)
   }, [playlistInput, track.input, artistInput])
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -170,7 +175,9 @@ export default function SearchBar({
       )}
 
       <div
-        className={`relative w-full rounded-md shadow-lg flex items-center gap-4 px-4 border border-gray-400 group focus-within:border-[#1ed760] focus-within:bg-gray-900 transition-all duration-300 ${
+        className={`relative ${
+          rest.disabled ? 'brightness-50' : ''
+        } w-full rounded-md shadow-lg flex items-center gap-4 px-4 border border-gray-400 group focus-within:border-[#1ed760] focus-within:bg-gray-900 transition-all duration-300 ${
           type === 'track' ? 'mt-1' : ''
         }`}
       >

@@ -20,6 +20,13 @@ export const fetchPlaylists = async (token: string, query: string) => {
     },
   })
 
+  // remove null values from list
+  if (res.data.playlists) {
+    res.data.playlists.items = res.data.playlists.items.filter(
+      (playlist: any) => playlist !== null
+    )
+  }
+
   return isCopiedPlaylist ? { playlists: { items: [res.data] } } : res.data
 }
 

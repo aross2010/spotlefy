@@ -42,6 +42,7 @@ export default async function PlaylistPage({
       })
 
       const data = res.data
+
       playlistTracks.push(...data.items)
       next = data.next
     }
