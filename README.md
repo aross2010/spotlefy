@@ -1,7 +1,7 @@
 
 ## Website
 
-[Spotlefy](https://spotlefy-heardle.vercel.app)
+[Spotlefy](https://spotlefy.vercel.app)
 
 ## About
 
